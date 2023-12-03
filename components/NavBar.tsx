@@ -1,78 +1,44 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+import { buttonVariants } from "./ui/button";
 
-const NavBar = () => {
-  return (
-    <div className="flex justify-between items-center p-8">
-      <Link href="/" passHref>
-        <Image src="/LangAILogo.png" alt="Logo" width={150} height={150} />
-      </Link>
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Chat
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Profile
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Admin
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-    </div>
-  );
-};
+interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
+  items: {
+    href: string;
+    title: string;
+  }[];
+}
 
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
+  const pathname = usePathname();
+
   return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
+    <nav
+      className={cn(
+        "flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1",
+        className
+      )}
+      {...props}
+    >
+      {items.map((item) => (
+        <Link
+          key={item.href}
+          href={item.href}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            buttonVariants({ variant: "ghost" }),
+            pathname === item.href
+              ? "bg-muted hover:bg-muted"
+              : "hover:bg-transparent hover:underline",
+            "justify-start"
           )}
-          {...props}
         >
-          <div className="text-md font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-md leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
+          {item.title}
+        </Link>
+      ))}
+    </nav>
   );
-});
-ListItem.displayName = "ListItem";
-export default NavBar;
+}
