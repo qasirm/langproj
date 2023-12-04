@@ -1,0 +1,62 @@
+{
+  "lessons": [
+    {
+      "id": "1",
+      "title": "Greetings",
+      "content": "Learn how to greet."
+    },
+    {
+      "id": "2",
+      "title": "Numbers",
+      "content": "Learn about numbers."
+    },
+    {
+      "id": "3",
+      "title": "Travel",
+      "content": "Learn essential phrases for travel."
+    },
+    {
+      "id": "4",
+      "title": "Food",
+      "content": "Discover popular dishes and how to order food."
+    },
+    {
+      "id": "5",
+      "title": "Survival",
+      "content": "Learn basic survival skills and emergency phrases."
+    }
+  ],
+  "completed": [
+    {
+      "id": "1"
+    },
+    {
+      "id": "2"
+    },
+    {
+      "id": "3"
+    }
+  ],
+  "notes": [
+    {
+      "text": "hi",
+      "id": 2
+    },
+    {
+      "text": "I am taking very good notes right now look so good note haha",
+      "id": 3
+    },
+    {
+      "text": "hi i take note",
+      "id": 4
+    },
+    {
+      "text": "orlo\n",
+      "id": 5
+    },
+    {
+      "text": "from the numbers page!",
+      "id": 6
+    }
+  ]
+}

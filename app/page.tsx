@@ -5,7 +5,7 @@ import ChatComponent from "@/components/ChatComponent";
 const ProductPage = () => {
   return (
     <div className="p-4">
-      <ChatComponent />
+      <ChatComponent lessonId="5" />
     </div>
   );
 };

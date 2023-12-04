@@ -15,7 +15,11 @@ import { useChat } from "ai/react";
 import { Grid } from "@radix-ui/themes";
 import Bubble from "./Bubble";
 
-export default function Chat() {
+interface ChatProps {
+  lessonId: string;
+}
+
+export default function Chat({ lessonId }: ChatProps) {
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat();
 
@@ -35,12 +39,12 @@ export default function Chat() {
   return (
     <Card className="w-">
       <CardHeader>
-        <CardTitle className="text-lg">LangAI - Language Helper</CardTitle>
+        <CardTitle className="text-lg">Playground</CardTitle>
       </CardHeader>
       <CardContent className="">
         <ScrollArea
           ref={scrollAreaRef}
-          className="h-[450px] overflow-y-auto w-full spacy-y-4 pr-4"
+          className="h-[350px] overflow-y-auto w-full spacy-y-4 pr-4"
         >
           <Bubble
             message={{

@@ -1,44 +1,60 @@
 "use client";
-
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { CheckCircle2 } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
 
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "./ui/button";
-
-interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
-  items: {
-    href: string;
-    title: string;
-  }[];
+interface NavItem {
+  href: string;
+  title: string;
+  id: string;
 }
 
-export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
+interface NavBarProps {
+  navItems: NavItem[];
+}
+
+const NavBar: React.FC<NavBarProps> = ({ navItems }) => {
   const pathname = usePathname();
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Fetch completed lessons data from the API route
+    fetch(`http://localhost:3002/completed`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCompletedLessons(data.map((lesson: any) => lesson.id));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const isLessonCompleted = (id: string) => {
+    return completedLessons.includes(id);
+  };
 
   return (
-    <nav
-      className={cn(
-        "flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1",
-        className
-      )}
-      {...props}
-    >
-      {items.map((item) => (
-        <Link
+    <div className="flex flex-col w-full">
+      {navItems.map((item) => (
+        <Button
+          asChild
+          variant={pathname === item.href ? "secondary" : "ghost"}
+          className="w-full justify-start"
           key={item.href}
-          href={item.href}
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            pathname === item.href
-              ? "bg-muted hover:bg-muted"
-              : "hover:bg-transparent hover:underline",
-            "justify-start"
-          )}
         >
-          {item.title}
-        </Link>
+          <Link className="flex justify-between pr-4" href={item.href}>
+            {item.title}
+            {isLessonCompleted(item.id) ? (
+              <CheckCircle2 color="#17A34A" className="h-5 w-5" />
+            ) : null}
+          </Link>
+        </Button>
       ))}
-    </nav>
+    </div>
   );
-}
+};
+
+export default NavBar;
