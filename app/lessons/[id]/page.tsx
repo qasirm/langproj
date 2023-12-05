@@ -1,11 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import ChatComponent from "@/components/ChatComponent";
-import { Switch } from "@/components/ui/switch";
+import LanguageSelector from "@/components/LanguageSelector";
+import NoteInput from "@/components/NoteComponent";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NoteInput from "@/components/NoteComponent";
 
 interface Lesson {
   id: string;
@@ -14,7 +15,6 @@ interface Lesson {
 }
 
 export default function LessonPage({ params }: { params: { id: string } }) {
-  const notify = () => toast("Wow so easy!");
   const [lessonData, setLessonData] = useState<Lesson | null>(null);
   const [completedLessons, setCompletedLessons] = useState<{
     [key: string]: boolean;
@@ -25,6 +25,16 @@ export default function LessonPage({ params }: { params: { id: string } }) {
       .then((res) => res.json())
       .then((data) => setLessonData(data))
       .catch((error) => console.error("Failed to fetch lesson data", error));
+
+    fetch(`http://localhost:3002/currentLesson`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: params.id }),
+    }).catch((error) =>
+      console.error("Failed to update current lesson", error)
+    );
 
     fetch(`http://localhost:3002/completed`)
       .then((res) => res.json())
@@ -81,8 +91,12 @@ export default function LessonPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="flex flex-col">
-      <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
+    <div className="flex flex-col pt-10">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar
+      />
       <div className="flex items-start">
         <div className="flex flex-col">
           <h1 className="mb-2 text-xl font-semibold tracking-tight">
@@ -90,15 +104,19 @@ export default function LessonPage({ params }: { params: { id: string } }) {
           </h1>
           <p className="mb-4 text-lg tracking-tight">{lessonData.content}</p>
         </div>
-        <div className="flex items-end ml-auto space-x-2">
-          <Switch
-            onCheckedChange={handleCheckboxChange}
-            checked={completedLessons[params.id] || false}
-          />
-          <Label>Mark as Completed</Label>
+        <div className="flex items-center ml-auto gap-4 space-x-2">
+          <LanguageSelector />
+
+          <div className="flex items-center gap-2">
+            <Switch
+              onCheckedChange={handleCheckboxChange}
+              checked={completedLessons[params.id] || false}
+            />
+            <Label>Mark as Completed</Label>
+          </div>
         </div>
       </div>
-      <div className="grid w-full gap-4">
+      <div className="grid w-full gap-4 pt-2">
         <ChatComponent lessonId={lessonData.id} />
         <NoteInput />
       </div>

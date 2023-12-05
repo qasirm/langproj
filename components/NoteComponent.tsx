@@ -1,8 +1,8 @@
 // NoteInput.jsx
-import React, { useState } from "react";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import { useState } from "react";
 import { toast } from "react-toastify";
+import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
 
 interface Note {
   id: string;

@@ -23,15 +23,18 @@
     {
       "id": "5",
       "title": "Survival",
-      "content": "Learn basic survival skills and emergency phrases."
+      "content": "Learn basic survival and emergency phrases."
     }
   ],
   "completed": [
     {
-      "id": "1"
+      "id": "2"
     },
     {
-      "id": "2"
+      "id": "5"
+    },
+    {
+      "id": "1"
     },
     {
       "id": "3"
@@ -39,24 +42,24 @@
   ],
   "notes": [
     {
-      "text": "hi",
-      "id": 2
+      "text": "Merhaba means hello!!!!",
+      "id": 7
     },
     {
-      "text": "I am taking very good notes right now look so good note haha",
-      "id": 3
-    },
-    {
-      "text": "hi i take note",
-      "id": 4
-    },
-    {
-      "text": "orlo\n",
-      "id": 5
-    },
-    {
-      "text": "from the numbers page!",
-      "id": 6
+      "text": "Merhaba!",
+      "id": 8
     }
-  ]
+  ],
+  "languages": [
+    "English",
+    "Spanish",
+    "Turkish",
+    "French"
+  ],
+  "selectedLanguage": {
+    "current": "Turkish"
+  },
+  "currentLesson": {
+    "id": "1"
+  }
 }

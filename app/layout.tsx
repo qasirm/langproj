@@ -24,16 +24,19 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body className="hidden space-y-6 p-10 pb-16 md:block">
-        <nav className="space-y-0.5">
-          <Link href="/" passHref>
-            <Image src="/LangAILogo.png" alt="Logo" width={150} height={66} />
-          </Link>
-        </nav>
+      <body className="p-10 pb-16 md:block">
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
           <aside className="-mx-4 lg:w-1/5">
             <div className="pb-2">
-              <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+              <Link href="/" passHref>
+                <Image
+                  src="/LangAILogo.png"
+                  alt="Logo"
+                  width={150}
+                  height={66}
+                />
+              </Link>
+              <h2 className="mb-2 px-4 pt-6 text-lg font-semibold tracking-tight">
                 Learn
               </h2>
               <div className="space-y-1">

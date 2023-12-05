@@ -1,18 +1,17 @@
 "use client";
-import React, { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useChat } from "ai/react";
 import { Grid } from "@radix-ui/themes";
+import { useChat } from "ai/react";
+import { useEffect, useRef } from "react";
 import Bubble from "./Bubble";
 
 interface ChatProps {
@@ -39,7 +38,7 @@ export default function Chat({ lessonId }: ChatProps) {
   return (
     <Card className="w-">
       <CardHeader>
-        <CardTitle className="text-lg">Playground</CardTitle>
+        <CardTitle className="text-lg">Chat with me!</CardTitle>
       </CardHeader>
       <CardContent className="">
         <ScrollArea

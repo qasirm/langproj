@@ -27,11 +27,6 @@ const NotesPage = () => {
       .catch((error) => console.error("Error fetching notes:", error));
   }, []);
 
-  const handleNewNoteAdded = (newNote: Note) => {
-    setNotes((prevNotes) => [...prevNotes, newNote]);
-    toast.success("Note added successfully");
-  };
-
   const handleUpdateNote = (id: string) => {
     fetch(`http://localhost:3002/notes/${id}`, {
       method: "PUT",
@@ -68,7 +63,11 @@ const NotesPage = () => {
 
   return (
     <div className="grid w-full gap-4">
-      <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar
+      />
       {notes.map((note) => (
         <Card key={note.id} className="p-3 mb-2">
           <div className="flex justify-between">
